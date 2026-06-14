@@ -38,6 +38,42 @@ activities = {
         "schedule": "월요일, 수요일, 금요일 오후 2:00 - 3:00",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    "Basketball Club": {
+        "description": "팀 농구 연습과 리그 경기를 준비합니다",
+        "schedule": "화요일, 목요일 오후 4:00 - 5:30",
+        "max_participants": 18,
+        "participants": ["nathan@mergington.edu", "kyle@mergington.edu"]
+    },
+    "Swimming Team": {
+        "description": "수영 기술 향상과 대회 준비를 위한 훈련을 합니다",
+        "schedule": "수요일, 금요일 오후 4:00 - 5:30",
+        "max_participants": 16,
+        "participants": ["mia@mergington.edu", "liam@mergington.edu"]
+    },
+    "Art Club": {
+        "description": "회화, 드로잉, 공예 등 다양한 미술 활동을 합니다",
+        "schedule": "월요일, 수요일 오후 3:30 - 5:00",
+        "max_participants": 15,
+        "participants": ["sophia@mergington.edu", "noah@mergington.edu"]
+    },
+    "Music Ensemble": {
+        "description": "학생들이 함께 음악을 연주하고 합주회를 준비합니다",
+        "schedule": "화요일, 목요일 오후 3:30 - 5:00",
+        "max_participants": 12,
+        "participants": ["ava@mergington.edu", "isabella@mergington.edu"]
+    },
+    "Math Olympiad Prep": {
+        "description": "수학 경시대회를 위한 문제 풀이와 논리적 사고를 훈련합니다",
+        "schedule": "금요일 오후 4:00 - 5:30",
+        "max_participants": 10,
+        "participants": ["ethan@mergington.edu", "chloe@mergington.edu"]
+    },
+    "Science Club": {
+        "description": "과학 실험과 연구 프로젝트를 통해 탐구심을 키웁니다",
+        "schedule": "수요일 오후 3:30 - 5:00",
+        "max_participants": 14,
+        "participants": ["lucas@mergington.edu", "harper@mergington.edu"]
     }
 }
 
@@ -62,6 +98,9 @@ def signup_for_activity(activity_name: str, email: str):
     # 대상 활동 조회
     activity = activities[activity_name]
 
+    # Validate student is not already signed up
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail="이미 신청된 학생입니다") 
     # 학생 추가
     activity["participants"].append(email)
     return {"message": f"{email} 님이 {activity_name} 활동에 신청되었습니다"}
